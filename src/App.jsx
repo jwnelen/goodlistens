@@ -2,9 +2,11 @@ import "./App.css";
 import { Button, TextInput } from "flowbite-react";
 import { useLazyQuery, gql } from "@apollo/client";
 import PodcastView from "./components/podcast";
-import { temp } from "./requests";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import AuthProvider from "./provider/authProvider";
+import Routes from "./routes";
+import NavigationBar from "./components/NavigationBar";
 
 // const GET_PODCAST_SERIES = gql`
 //   query getPodcastSeries($term: String) {
@@ -66,53 +68,56 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className="flex justify-center m-1 mb-10">
-        <TextInput
-          id="search"
-          placeholder="search for series"
-          type="text"
-          className="mr-1"
-          onSubmit={() => getPodcasts({ variables: { term: searchText } })}
-          onChange={(e) => setSearchText(e.target.value)}
-        />
-        <Button
-          className="p--1"
-          onClick={() => {
-            getPodcasts({ variables: { term: searchText } });
-          }}
-        >
-          <MagnifyingGlassIcon className="w-6 h-6"></MagnifyingGlassIcon>
-        </Button>
-      </div>
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
+    // <div className="App">
+    //   <div className="flex justify-center m-1 mb-10">
+    //     <TextInput
+    //       id="search"
+    //       placeholder="search for series"
+    //       type="text"
+    //       className="mr-1"
+    //       onSubmit={() => getPodcasts({ variables: { term: searchText } })}
+    //       onChange={(e) => setSearchText(e.target.value)}
+    //     />
+    //     <Button
+    //       className="p--1"
+    //       onClick={() => {
+    //         getPodcasts({ variables: { term: searchText } });
+    //       }}
+    //     >
+    //       <MagnifyingGlassIcon className="w-6 h-6"></MagnifyingGlassIcon>
+    //     </Button>
+    //   </div>
 
-      {error && <p>Error...</p>}
-      {loading && <Spinner />}
-      {podcasts && (
-        <>
-          <h1>Podcasts</h1>
-          <ul role="list" className="divide-y divide-gray-100 mx-4">
-            {podcasts.map((podcast) => (
-              <li key={podcast?.uuid}>
-                <PodcastView podcast={podcast}></PodcastView>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-      {episodes && (
-        <>
-          <h1>Episodes</h1>
-          <ul role="list" className="divide-y divide-gray-100 mx-4">
-            {episodes.map((episode) => (
-              <li key={episode?.uuid}>
-                <PodcastView podcast={episode}></PodcastView>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </div>
+    //   {error && <p>Error...</p>}
+    //   {loading && <Spinner />}
+    //   {podcasts && (
+    //     <>
+    //       <h1>Podcasts</h1>
+    //       <ul role="list" className="divide-y divide-gray-100 mx-4">
+    //         {podcasts.map((podcast) => (
+    //           <li key={podcast?.uuid}>
+    //             <PodcastView podcast={podcast}></PodcastView>
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     </>
+    //   )}
+    //   {episodes && (
+    //     <>
+    //       <h1>Episodes</h1>
+    //       <ul role="list" className="divide-y divide-gray-100 mx-4">
+    //         {episodes.map((episode) => (
+    //           <li key={episode?.uuid}>
+    //             <PodcastView podcast={episode}></PodcastView>
+    //           </li>
+    //         ))}
+    //       </ul>
+    //     </>
+    //   )}
+    // </div>
   );
 }
 

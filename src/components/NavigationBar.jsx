@@ -54,10 +54,13 @@ const NavigationBar = () => {
         <Navbar.Link active={location.pathname === "/"} href="/">
           <p>Home</p>
         </Navbar.Link>
-        <Navbar.Link active={location.pathname === "/login"} href="/login">
-          Login
-        </Navbar.Link>
         <Navbar.Link href="#">Contact</Navbar.Link>
+
+        {!token && (
+          <Navbar.Link active={location.pathname === "/login"} href="/login">
+            Login
+          </Navbar.Link>
+        )}
       </Navbar.Collapse>
     </Navbar>
   );

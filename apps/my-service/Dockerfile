@@ -1,5 +1,5 @@
 # multi-stage: base (build)
-FROM node:18.13.0 AS base
+FROM node:16.13.0-alpine AS base
 
 # create directory where the application will be built
 WORKDIR /app

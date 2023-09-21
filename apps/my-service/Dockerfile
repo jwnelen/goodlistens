@@ -10,6 +10,7 @@ COPY package*.json ./
 
 # installs packages and their dependencies
 RUN npm install
+RUN npm install openssl-nodejs
 
 # copy over the prisma schema
 COPY prisma/schema.prisma ./prisma/

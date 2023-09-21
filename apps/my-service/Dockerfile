@@ -1,5 +1,5 @@
 # multi-stage: base (build)
-FROM node:20-slim AS base
+FROM node:18-slim AS base
 
 # create directory where the application will be built
 WORKDIR /app
@@ -24,7 +24,7 @@ COPY . .
 RUN npm run build
 
 # multi-stage: production (runtime)
-FROM node:20-slim AS production
+FROM node:18-slim AS production
 
 # create arguments of builds time variables
 ARG user=amplication

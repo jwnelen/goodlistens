@@ -1,5 +1,5 @@
 # multi-stage: base (build)
-FROM node:18-slim AS base
+FROM node:18-bullseye-slim AS base
 
 # create directory where the application will be built
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY package*.json ./
 
 # installs packages and their dependencies
 RUN npm install
-RUN npm install openssl-nodejs
+# RUN npm install openssl-nodejs
 
 # copy over the prisma schema
 COPY prisma/schema.prisma ./prisma/
@@ -25,7 +25,7 @@ COPY . .
 RUN npm run build
 
 # multi-stage: production (runtime)
-FROM node:18-slim AS production
+FROM node:18-bullseye-slim AS production
 
 # create arguments of builds time variables
 ARG user=amplication
